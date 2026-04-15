@@ -9,8 +9,6 @@ from app import app
 from models import db, Exercise, Workout, WorkoutExercise
 
 
-
-
 @pytest.fixture
 def client():
     """Configure app for testing with an in-memory SQLite database."""
@@ -64,8 +62,6 @@ class TestExerciseModelValidations:
             assert ex.id is not None
 
 
-
-
 class TestWorkoutModelValidations:
     def test_zero_duration_raises(self, client):
         with app.app_context():
@@ -87,7 +83,6 @@ class TestWorkoutModelValidations:
             db.session.add(wo)
             db.session.commit()
             assert wo.id is not None
-
 
 
 class TestExerciseEndpoints:
@@ -130,9 +125,7 @@ class TestExerciseEndpoints:
     def test_delete_exercise(self, client, sample_exercise):
         resp = client.delete(f"/exercises/{sample_exercise}")
         assert resp.status_code == 200
-        # Confirm it's gone
         assert client.get(f"/exercises/{sample_exercise}").status_code == 404
-
 
 
 class TestWorkoutEndpoints:
